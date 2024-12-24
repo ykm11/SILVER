@@ -1,29 +1,30 @@
 
-BOOST    ?= /home/work/tools/boost_1_71_0/install
-SYLVAN	 := "./inc/sylvan"
+#BOOST    ?= /home/work/tools/boost_1_71_0/install
+BOOST    ?= ./boost_1_86_0
+SYLVAN   := ./inc/sylvan
 
-CXX 	 := g++
+CXX      := g++
 CXXFLAGS := -m64 -march=native -DVERILOG
 LDFLAGS  := -m64
 
-TARGET	 := verify
+TARGET   := verify
 
-SRC_EXT	 := cpp
+SRC_EXT  := cpp
 INC_EXT  := hpp
 
-BLD_DIR	 := ./build
-SRC_DIR	 := ./src
-BIN_DIR	 := ./bin
+BLD_DIR  := ./build
+SRC_DIR  := ./src
+BIN_DIR  := ./bin
 INC_DIR  := ./inc
-LIB_DIR	 := ./lib
-OBJ_DIR	 := $(BLD_DIR)/objects
+LIB_DIR  := ./lib
+OBJ_DIR  := $(BLD_DIR)/objects
 
-LIBRARIES:= -L$(LIB_DIR) -lsylvan  -L$(BOOST)/lib -lboost_program_options
+LIBRARIES:= -L$(LIB_DIR) -lsylvan  -L$(BOOST)/libs -lboost_program_options
 
 # SOURCES  := $(wildcard $(SRC_DIR)/*.cpp)
-SOURCES  := $(shell find $(SRC_PATH) -name '*.$(SRC_EXT)' | sort -k 1nr | cut -f2-)
+SOURCES  := $(shell find $(SRC_DIR) -name '*.$(SRC_EXT)' | sort -k 1nr | cut -f2-)
 OBJECTS  := $(SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
-INCLUDE	 := -I $(INC_DIR) -I $(BOOST) -I $(SYLVAN)
+INCLUDE  := -I $(INC_DIR) -I $(BOOST)/boost -I $(SYLVAN)
 
 all: build $(BIN_DIR)/$(TARGET)
 
